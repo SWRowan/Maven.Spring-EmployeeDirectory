@@ -9,12 +9,19 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Comparator;
+import java.util.List;
 import java.util.Optional;
 
 @RestController
+@RequestMapping(path = "/API")
 public class EmployeeDirectoryController {
+
+
     DepartmentRepo departmentRepo;
     EmployeeRepo employeeRepo;
+
+
 
     @Autowired
     public EmployeeDirectoryController(DepartmentRepo departmentRepo, EmployeeRepo employeeRepo) {
@@ -32,6 +39,8 @@ public class EmployeeDirectoryController {
         return new ResponseEntity<>(departmentRepo.findOne(id), HttpStatus.OK);
     }
 
+
+
     @PostMapping("/directory/employee")
     public ResponseEntity<Employee> createEmployee(@RequestBody Employee employee){
         return new ResponseEntity<>(employeeRepo.save(employee), HttpStatus.CREATED);
@@ -45,13 +54,13 @@ public class EmployeeDirectoryController {
     @PutMapping("/directory/employee")
     public ResponseEntity<Employee> updateEmployee(@RequestBody Employee employee){
         Employee e = new Employee();
-        e.setDeptNumber(employee.getDeptNumber());
+        e.setDepartment(employee.getDepartment());
         e.setFirstName(employee.getFirstName());
         e.setLastName(employee.getLastName());
         e.setHireDate(employee.getHireDate());
         e.setEmail(employee.getEmail());
         e.setPhoneNumber(employee.getPhoneNumber());
-        e.setManager(employee.getManager());
+        e.setManagerId(employee.getManagerId());
         return new ResponseEntity<>(employeeRepo.save(e), HttpStatus.OK);
     }
 
@@ -72,6 +81,11 @@ public class EmployeeDirectoryController {
     public void deleteDepartment(@PathVariable Integer id){
         departmentRepo.delete(id);
     }
+
+//    @GetMapping("/directory/employee/{departmentId}")
+//    public ResponseEntity<List<Employee>> findByDepartment(@PathVariable int departmentId){
+//        return new ResponseEntity<>(employeeRepo.findByDepartment(departmentRepo.findOne(departmentId)), HttpStatus.OK);
+//    }
 
 
 }

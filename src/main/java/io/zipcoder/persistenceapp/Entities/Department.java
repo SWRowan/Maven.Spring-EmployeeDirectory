@@ -1,10 +1,8 @@
 package io.zipcoder.persistenceapp.Entities;
 
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.List;
 
 @Entity
 public class Department {
@@ -15,6 +13,10 @@ public class Department {
 
     private String deptName;
     private Integer managerId;
+
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private List<Employee> employeeList;
+
 
     public Department() {
     }
@@ -37,5 +39,13 @@ public class Department {
 
     public void setManagerId(Integer managerId) {
         this.managerId = managerId;
+    }
+
+    public List<Employee> getEmployeeList() {
+        return employeeList;
+    }
+
+    public void setEmployeeList(List<Employee> employeeList) {
+        this.employeeList = employeeList;
     }
 }

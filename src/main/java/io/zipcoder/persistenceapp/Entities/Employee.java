@@ -1,11 +1,10 @@
 package io.zipcoder.persistenceapp.Entities;
 
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.persistence.criteria.CriteriaBuilder;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 public class Employee {
@@ -21,7 +20,9 @@ public class Employee {
     private String email;
     private String hireDate;
     private Integer managerId;
-    private Integer deptNumber;
+
+    @ManyToOne
+    private Department department;
 
     public Employee() {
     }
@@ -86,11 +87,23 @@ public class Employee {
         this.email = email;
     }
 
-    public Integer getDeptNumber() {
-        return deptNumber;
+    public Department getDepartment() {
+        return department;
     }
 
-    public void setDeptNumber(Integer deptNumber) {
-        this.deptNumber = deptNumber;
+    public void setDepartment(Department department) {
+        this.department = department;
     }
+
+//    public List<Employee> getEmployeeList() {
+//        return employeeList;
+//    }
+//
+//    public void setEmployeeList(List<Employee> employeeList) {
+//        this.employeeList = employeeList;
+//    }
+//
+//    public void addEmployee(Employee employee){
+//        employeeList.add(employee);
+//    }
 }
